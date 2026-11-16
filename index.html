@@ -83,7 +83,7 @@
           <ol class="how">
             <li><span><b>Choose</b> your seedlings and quantities</span></li>
             <li><span><b>Send</b> the order to us on WhatsApp</span></li>
-            <li><span><b>We confirm</b> your date and quantities</span></li>
+            <li><span><b>We confirm</b> your date, then you <b>pay via M-Pesa</b></span></li>
             <li><span><b>Collect</b> healthy seedlings at the farm</span></li>
           </ol>
         </div>
@@ -96,6 +96,14 @@
           <div class="calc-total">
             <div><span>Seedlings</span><b id="tCount">0</b></div>
             <div><span>Estimated total</span><b id="tSum">KSh 0</b></div>
+          </div>
+          <div class="pay">
+            <div class="pay-head"><span class="mpesa">M-PESA</span><b>Payment</b></div>
+            <div class="pay-grid">
+              <div><span>Paybill</span><b id="payBill"></b><button type="button" class="copy" data-copy="payBill">Copy</button></div>
+              <div><span>Account</span><b id="payAcc"></b><button type="button" class="copy" data-copy="payAcc">Copy</button></div>
+            </div>
+            <p id="payNote"></p>
           </div>
           <button type="submit" class="btn btn-wa btn-block" id="calcSend" disabled>
             <svg viewBox="0 0 24 24"><path d="M20.5 3.5A11 11 0 0 0 3.6 17.2L2 22l4.9-1.6A11 11 0 1 0 20.5 3.5z"/></svg>
@@ -142,21 +150,18 @@
 
     <!-- PARTNER -->
     <section id="partner" class="sec partner">
-      <div class="wrap partner-grid">
-        <div class="reveal">
+      <div class="wrap">
+        <div class="partner-head reveal">
           <span class="kicker light">Partner with us</span>
-          <h2>Help us grow an inclusive, climate-smart seedling enterprise</h2>
-          <p>Georges Asis Farm is a youth-led start-up bringing quality seedlings closer to smallholder farmers in Kericho. We welcome partners who want to see more farmers start each season with healthy, productive plants.</p>
-          <div class="budget">
-            <span>Total setup need</span>
-            <b id="budget"></b>
-            <div class="covers" id="covers"></div>
-          </div>
+          <h2 id="pTitle"></h2>
+          <p id="pIntro"></p>
         </div>
-        <div class="reveal">
-          <div class="asks" id="asks"></div>
+        <div class="offers" id="offers"></div>
+        <div class="partner-foot reveal">
+          <div class="benefits" id="benefits"></div>
           <div class="partner-cta">
-            <a class="btn btn-sun" id="partnerMail">Request our concept note</a>
+            <a class="btn btn-sun" id="partnerMail">Discuss a partnership</a>
+            <a class="btn btn-ghost" id="partnerWa" target="_blank" rel="noopener">WhatsApp us</a>
             <a class="btn btn-ghost" id="partnerCall"></a>
           </div>
         </div>

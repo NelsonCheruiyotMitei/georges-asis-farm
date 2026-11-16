@@ -102,7 +102,7 @@
     });
     const name = $("#cName").value.trim(), place = $("#cPlace").value.trim();
     const msg = [hello, "", ...lines, "", `Total: ${count.toLocaleString()} seedlings, ${money(sum)}`,
-      name ? `Name: ${name}` : null, place ? `Location: ${place}` : null, "", "Please confirm availability and the collection date. Thank you."]
+      name ? `Name: ${name}` : null, place ? `Location: ${place}` : null, "", "Please confirm availability and the collection date. I will pay via M-Pesa Paybill " + F.payment.paybill + ", Account " + F.payment.account + " after confirmation. Thank you."]
       .filter(x => x !== null).join("\n");
     window.open(wa(msg), "_blank", "noopener");
   });
@@ -118,11 +118,21 @@
   addEventListener("keydown", e => { if (e.key === "Escape") closeLb(); });
 
   /* ---------- Partner ---------- */
-  $("#budget").textContent = F.partner.budget;
-  $("#covers").innerHTML = F.partner.covers.map(c => `<span>${c}</span>`).join("");
-  $("#asks").innerHTML = F.partner.asks.map(a => `<div class="ask"><h3>${a.t}</h3><p>${a.d}</p></div>`).join("");
-  $("#partnerMail").href = `mailto:${F.email}?subject=${encodeURIComponent("Partnership enquiry: Georges Asis Farm")}&body=${encodeURIComponent("Hello Nelson,\n\nI would like to receive the Georges Asis Farm concept note and discuss how we could support.\n\nRegards,\n")}`;
+  const P = F.partner;
+  $("#pTitle").textContent = P.title; $("#pIntro").textContent = P.intro;
+  $("#offers").innerHTML = P.offers.map(o => `<div class="offer reveal"><span class="oi">${o.icon}</span><span class="otag">${o.tag}</span><h3>${o.t}</h3><p>${o.d}</p></div>`).join("");
+  $("#benefits").innerHTML = P.benefits.map(x => `<span>${x}</span>`).join("");
+  $("#partnerMail").href = `mailto:${F.email}?subject=${encodeURIComponent("Partnership enquiry: Georges Asis Farm")}&body=${encodeURIComponent("Hello Nelson,\n\nWe are interested in working with Georges Asis Farm on:\n[ ] Seedlings for CBOs / farmer groups\n[ ] Training and demonstration at the farm\n[ ] Product demonstration and promotion\n\nOrganisation:\nContact person:\nPhone:\n\nRegards,\n")}`;
+  $("#partnerWa").href = wa("Hello Georges Asis Farm, we are an organisation interested in a partnership (bulk seedlings for groups / training / product demonstration). Can we discuss?");
   $("#partnerCall").href = "tel:" + F.phone; $("#partnerCall").textContent = "Call " + F.phoneDisplay;
+
+  /* ---------- Payment ---------- */
+  $("#payBill").textContent = F.payment.paybill; $("#payAcc").textContent = F.payment.account; $("#payNote").textContent = F.payment.note;
+  $$(".copy").forEach(btn => btn.addEventListener("click", async () => {
+    const v = $("#" + btn.dataset.copy).textContent;
+    try { await navigator.clipboard.writeText(v); } catch { const t = Object.assign(document.createElement("textarea"), { value: v }); document.body.append(t); t.select(); document.execCommand("copy"); t.remove(); }
+    btn.textContent = "Copied"; btn.classList.add("ok"); setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("ok"); }, 1500);
+  }));
 
   /* ---------- Contact ---------- */
   $("#loc").textContent = F.location; $("#landmark").textContent = F.landmark;

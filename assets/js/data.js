@@ -50,14 +50,22 @@ window.FARM = {
     ]
   },
 
+  // M-Pesa payment details
+  payment: {
+    paybill: "247247",
+    account: "0723400665",
+    note: "Pay after we confirm your order and collection date on WhatsApp."
+  },
+
+  // Partnership offers (business partnerships, not grants)
   partner: {
-    budget: "KSh 650,000",
-    covers: ["Greenhouse establishment", "Irrigation system", "Seedling trays", "Quality seeds", "Growing media", "Initial inputs"],
-    asks: [
-      { t: "Equipment", d: "Greenhouse materials, irrigation kits and seedling trays" },
-      { t: "Inputs", d: "Certified seeds and growing media for the first batches" },
-      { t: "Technical support", d: "Agronomy advice, incubation and mentorship" },
-      { t: "Market linkages", d: "Introductions to cooperatives, agro-dealers and institutions" }
-    ]
+    title: "Work with us: seedlings, training and demonstration",
+    intro: "We partner with organisations that support farmers. Buy quality seedlings for the groups you work with, train farmers at our greenhouse, or showcase your farm products to the farmers who visit us.",
+    offers: [
+      { icon: "🤝", t: "Seedlings for CBOs & farmer groups", d: "NGOs, programmes and county projects can buy seedlings in bulk for the CBOs, women's and youth groups they support, with delivery planned around the planting season.", tag: "Bulk supply" },
+      { icon: "🎓", t: "Training & demonstration ground", d: "Use our greenhouse as a practical learning site for farmer field days, youth and school visits, and hands-on training in nursery and greenhouse practice.", tag: "Field days" },
+      { icon: "📣", t: "Product demonstration & promotion", d: "Agro-input companies can demonstrate seeds, fertilisers, irrigation kits, trays and other farm products on site and introduce them to the farmers who buy from us.", tag: "Demo plots" }
+    ],
+    benefits: ["Healthy, uniform seedlings at transparent prices", "A real working greenhouse for practical learning", "Direct reach to smallholder farmers in Kericho", "Clear records of seedlings supplied for your reporting"]
   }
 };
