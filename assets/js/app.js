@@ -37,10 +37,6 @@
   ["#navWa", "#heroWa", "#waFloat"].forEach(id => $(id).href = wa(hello));
   $("#year").textContent = new Date().getFullYear();
 
-  // Progress steps
-  $("#progressSteps").innerHTML = F.progress.map((p, i) =>
-    `<li class="${p.done ? "done" : ""} ${p.current ? "current" : ""}"><span class="dot">${p.done ? "✓" : i + 1}</span><b>${p.t}</b><span>${p.d}</span></li>`).join("");
-
   // Crop cards
   $("#crops").innerHTML = F.seedlings.map(s => `
     <article class="crop reveal">

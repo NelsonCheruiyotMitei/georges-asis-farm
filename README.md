@@ -9,7 +9,6 @@ Everything you'll want to change is in **`assets/js/data.js`**:
 - **Payment:** `payment` (M-Pesa Paybill and account)
 - **Partnerships:** `partner` (offers shown in the Partner section)
 - **Status:** set `launched: true` when seedlings are available. The badge switches to "Seedlings available now".
-- **Setup progress:** `progress` (set `done: true` as each step finishes)
 - **Photos:** `photos` (replace the stock photo links with real farm photos uploaded to `assets/img/`)
 - **Social links:** `social.tiktok`, `social.facebook` (hidden while empty)
 - **Contacts:** `whatsapp`, `phone`, `email`

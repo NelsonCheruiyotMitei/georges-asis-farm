@@ -30,14 +30,6 @@ window.FARM = {
     { id: "capsicum", name: "Capsicum", local: "Hoho", price: 4, note: "Sweet pepper seedlings for open field or greenhouse.", art: "capsicum" }
   ],
 
-  // Setup progress (done: true shows a tick)
-  progress: [
-    { t: "Land secured", d: "Site ready in Kapkatet", done: true },
-    { t: "Greenhouse & irrigation", d: "8m × 24m (192 m²) greenhouse with irrigation: being set up", done: false },
-    { t: "Trays, seeds & growing media", d: "Inputs for the first batch: being sourced", done: false },
-    { t: "First batch", d: "Pre-booking open now", done: false, current: true }
-  ],
-
   // Free stock photos from Pexels (free for commercial use). Replace with real farm photos later,
   // e.g. "assets/img/greenhouse.jpg"
   photos: {
