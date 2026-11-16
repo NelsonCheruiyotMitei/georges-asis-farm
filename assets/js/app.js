@@ -1,0 +1,147 @@
+/* Georges Asis Farm: site behaviour. Content lives in data.js */
+(() => {
+  const F = window.FARM;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const h = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+  const money = n => "KSh " + n.toLocaleString("en-KE", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
+  const priceTxt = n => "KSh " + (n % 1 ? n.toFixed(2) : n);
+  const wa = text => `https://wa.me/${F.whatsapp}?text=${encodeURIComponent(text)}`;
+  const hello = "Hello Georges Asis Farm, I would like to pre-book seedlings.";
+
+  /* ---------- Crop illustrations ---------- */
+  const ART = {
+    cabbage: `<svg viewBox="0 0 120 120"><ellipse cx="60" cy="104" rx="38" ry="6" fill="#7a4b2a" opacity=".18"/>
+      <path d="M20 78c-6-22 8-44 24-46-10 10-12 28-4 44z" fill="#4f9d3a"/><path d="M100 78c6-22-8-44-24-46 10 10 12 28 4 44z" fill="#4f9d3a"/>
+      <path d="M26 86c-4-10 0-20 8-24 8 18 30 26 52 0 8 4 12 14 8 24-10 16-58 16-68 0z" fill="#5fb246"/>
+      <circle cx="60" cy="62" r="30" fill="#9ad66f"/><circle cx="60" cy="60" r="22" fill="#bfe891"/>
+      <path d="M60 40c-8 6-10 16-6 26M60 40c8 6 10 16 6 26M44 52c6 2 12 8 14 16M76 52c-6 2-12 8-14 16" stroke="#8cc45f" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`,
+    kale: `<svg viewBox="0 0 120 120"><ellipse cx="60" cy="104" rx="30" ry="5" fill="#7a4b2a" opacity=".18"/>
+      <path d="M60 102V58" stroke="#3f7d2c" stroke-width="5" stroke-linecap="round"/>
+      <path d="M58 70C38 72 22 58 20 34c8 2 10-2 16 2 4-4 8 0 12-2 2 6 8 4 10 10 4 6 0 12 0 26z" fill="#3e8f3a"/>
+      <path d="M62 70c20 2 36-12 38-36-8 2-10-2-16 2-4-4-8 0-12-2-2 6-8 4-10 10-4 6 0 12 0 26z" fill="#4ea544"/>
+      <path d="M60 62C52 46 52 26 60 10c4 6 8 4 10 10 4 2 2 8 4 12-2 8 0 14-6 22z" fill="#62bb4f"/>
+      <path d="M58 68C46 58 36 46 28 38M62 68c12-10 22-22 30-30M60 60V20" stroke="#a8de86" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`,
+    capsicum: `<svg viewBox="0 0 120 120"><ellipse cx="60" cy="106" rx="30" ry="5" fill="#7a4b2a" opacity=".18"/>
+      <path d="M58 30c0-10 6-16 14-18" stroke="#3f7d2c" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M44 34c8-6 24-6 32 0" stroke="#3f7d2c" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <path d="M36 44c4-10 14-12 24-8 10-4 20-2 24 8 6 16 4 40-8 54-6 6-12 2-16-2-4 4-10 8-16 2-12-14-14-38-8-54z" fill="#3fa34d"/>
+      <path d="M60 36c-6 18-6 44 0 62" stroke="#2f8a3d" stroke-width="3" fill="none"/>
+      <path d="M44 46c-4 12-2 28 4 40" stroke="#8fdc8f" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/></svg>`
+  };
+
+  /* ---------- Static content ---------- */
+  $("#statusPill").innerHTML = F.launched ? "<i></i> Seedlings available now" : "<i></i> Launching soon · Pre-booking open";
+  const heroImg = $("#heroImg"); if (heroImg && F.photos.hero) heroImg.src = F.photos.hero;
+  $("#heroPrices").innerHTML = F.seedlings.map(s => `<div class="hp"><span>${s.name} · ${s.local}</span><b>${priceTxt(s.price)}</b> <small>/ seedling</small></div>`).join("");
+  ["#navWa", "#heroWa", "#waFloat"].forEach(id => $(id).href = wa(hello));
+  $("#year").textContent = new Date().getFullYear();
+
+  // Progress steps
+  $("#progressSteps").innerHTML = F.progress.map((p, i) =>
+    `<li class="${p.done ? "done" : ""} ${p.current ? "current" : ""}"><span class="dot">${p.done ? "✓" : i + 1}</span><b>${p.t}</b><span>${p.d}</span></li>`).join("");
+
+  // Crop cards
+  $("#crops").innerHTML = F.seedlings.map(s => `
+    <article class="crop reveal">
+      <div class="crop-art">${ART[s.art] || ""}</div>
+      <div class="crop-body">
+        <h3>${s.name}</h3><span class="local">${s.local}</span>
+        <p>${s.note}</p>
+        <div class="price"><b>${priceTxt(s.price)}</b><span>per seedling</span></div>
+        <a href="#book" class="btn btn-sun" data-add="${s.id}">Add to my order</a>
+      </div>
+    </article>`).join("");
+
+  /* ---------- Order calculator ---------- */
+  const qty = Object.fromEntries(F.seedlings.map(s => [s.id, 0]));
+  $("#calcRows").innerHTML = F.seedlings.map(s => `
+    <div class="crow" data-id="${s.id}">
+      <div class="crow-name"><b>${s.name} <span>(${s.local})</span></b><span>${priceTxt(s.price)} per seedling</span></div>
+      <div class="stepper">
+        <button type="button" data-d="-100" aria-label="Remove 100">−</button>
+        <input type="number" min="0" step="50" value="0" inputmode="numeric" aria-label="${s.name} seedlings">
+        <button type="button" data-d="100" aria-label="Add 100">+</button>
+      </div>
+      <div class="presets">${[100, 500, 1000, 2000].map(n => `<button type="button" data-set="${n}">${n.toLocaleString()}</button>`).join("")}</div>
+      <div class="sub"></div>
+    </div>`).join("");
+
+  function setQty(id, n) {
+    qty[id] = Math.max(0, Math.round(+n || 0));
+    const row = $(`.crow[data-id="${id}"]`);
+    $("input", row).value = qty[id];
+    update();
+  }
+  function update() {
+    let count = 0, sum = 0;
+    F.seedlings.forEach(s => {
+      const n = qty[s.id], sub = n * s.price;
+      count += n; sum += sub;
+      $(`.crow[data-id="${s.id}"] .sub`).textContent = n ? `${n.toLocaleString()} × ${priceTxt(s.price)} = ${money(sub)}` : "";
+    });
+    $("#tCount").textContent = count.toLocaleString();
+    $("#tSum").textContent = money(sum);
+    $("#calcSend").disabled = count === 0;
+  }
+  $$(".crow").forEach(row => {
+    const id = row.dataset.id, input = $("input", row);
+    $$("[data-d]", row).forEach(b => b.addEventListener("click", () => setQty(id, qty[id] + +b.dataset.d)));
+    $$("[data-set]", row).forEach(b => b.addEventListener("click", () => setQty(id, +b.dataset.set)));
+    input.addEventListener("input", () => setQty(id, input.value));
+  });
+  $$("[data-add]").forEach(b => b.addEventListener("click", () => { const id = b.dataset.add; if (!qty[id]) setQty(id, 500); }));
+
+  $("#calc").addEventListener("submit", e => {
+    e.preventDefault();
+    let lines = [], count = 0, sum = 0;
+    F.seedlings.forEach(s => {
+      const n = qty[s.id]; if (!n) return;
+      count += n; sum += n * s.price;
+      lines.push(`• ${s.name} (${s.local}): ${n.toLocaleString()} × ${priceTxt(s.price)} = ${money(n * s.price)}`);
+    });
+    const name = $("#cName").value.trim(), place = $("#cPlace").value.trim();
+    const msg = [hello, "", ...lines, "", `Total: ${count.toLocaleString()} seedlings, ${money(sum)}`,
+      name ? `Name: ${name}` : null, place ? `Location: ${place}` : null, "", "Please confirm availability and the collection date. Thank you."]
+      .filter(x => x !== null).join("\n");
+    window.open(wa(msg), "_blank", "noopener");
+  });
+  update();
+
+  /* ---------- Gallery + lightbox ---------- */
+  const lb = $("#lb");
+  $("#gallery").innerHTML = F.photos.gallery.map(g => `<figure class="g reveal"><img src="${g.src}" alt="${g.cap}" loading="lazy" onerror="this.remove()"><span>${g.cap}</span></figure>`).join("");
+  $$(".g").forEach((g, i) => g.addEventListener("click", () => { $("#lbImg").src = F.photos.gallery[i].src; lb.classList.add("open"); }));
+  const closeLb = () => lb.classList.remove("open");
+  $("#lbX").addEventListener("click", closeLb);
+  lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
+  addEventListener("keydown", e => { if (e.key === "Escape") closeLb(); });
+
+  /* ---------- Partner ---------- */
+  $("#budget").textContent = F.partner.budget;
+  $("#covers").innerHTML = F.partner.covers.map(c => `<span>${c}</span>`).join("");
+  $("#asks").innerHTML = F.partner.asks.map(a => `<div class="ask"><h3>${a.t}</h3><p>${a.d}</p></div>`).join("");
+  $("#partnerMail").href = `mailto:${F.email}?subject=${encodeURIComponent("Partnership enquiry: Georges Asis Farm")}&body=${encodeURIComponent("Hello Nelson,\n\nI would like to receive the Georges Asis Farm concept note and discuss how we could support.\n\nRegards,\n")}`;
+  $("#partnerCall").href = "tel:" + F.phone; $("#partnerCall").textContent = "Call " + F.phoneDisplay;
+
+  /* ---------- Contact ---------- */
+  $("#loc").textContent = F.location; $("#landmark").textContent = F.landmark;
+  $("#contactWa").href = wa(hello); $("#contactWa").textContent = "WhatsApp " + F.whatsappDisplay;
+  $("#directions").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(F.mapsQuery);
+  $("#cWa").innerHTML = `<a href="${wa(hello)}" target="_blank" rel="noopener">${F.whatsappDisplay}</a>`;
+  $("#cPerson").textContent = F.contactPerson;
+  $("#cPhone").innerHTML = `<a href="tel:${F.phone}">${F.phoneDisplay}</a>`;
+  $("#cEmail").innerHTML = `<a href="mailto:${F.email}">${F.email}</a>`;
+  const soc = $("#social");
+  if (F.social.tiktok) soc.append(Object.assign(h("a", null, "TikTok"), { href: F.social.tiktok, target: "_blank", rel: "noopener" }));
+  if (F.social.facebook) soc.append(Object.assign(h("a", null, "Facebook"), { href: F.social.facebook, target: "_blank", rel: "noopener" }));
+
+  /* ---------- Nav + reveal ---------- */
+  const nav = $("#nav");
+  const onScroll = () => nav.classList.toggle("solid", scrollY > 40);
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  $("#menuBtn").addEventListener("click", () => $("#navLinks").classList.toggle("open"));
+  $$("#navLinks a").forEach(a => a.addEventListener("click", () => $("#navLinks").classList.remove("open")));
+  const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }), { threshold: .12 });
+  $$(".reveal").forEach(el => io.observe(el));
+})();
