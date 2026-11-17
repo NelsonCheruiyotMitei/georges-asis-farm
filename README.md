@@ -9,7 +9,7 @@ Everything you'll want to change is in **`assets/js/data.js`**:
 - **Payment:** `payment` (M-Pesa Paybill and account)
 - **Partnerships:** `partner` (offers shown in the Partner section)
 - **Status:** set `launched: true` when seedlings are available. The badge switches to "Seedlings available now".
-- **Photos:** `photos` (replace the stock photo links with real farm photos uploaded to `assets/img/`)
+- **Photos:** `photos` in `data.js`; the files are in `assets/img/photos/`. Replace them with real farm photos when you have them (WebP or JPG, about 1,400px wide)
 - **Social links:** `social.tiktok`, `social.facebook` (hidden while empty)
 - **Contacts:** `whatsapp`, `phone`, `email`
 - **Opening hours:** `hours` (shown in the contact card; remove all entries to hide the box). If you change them, also update `openingHoursSpecification` in `index.html` so Google shows the same hours.
@@ -18,4 +18,4 @@ Everything you'll want to change is in **`assets/js/data.js`**:
 
 Edit online at https://github.dev/NelsonCheruiyotMitei/georges-asis-farm, then commit. The site updates in about 2 minutes.
 
-Stock photos: Pexels (free for commercial use).
+Photos: Unsplash, free to use under the Unsplash License (https://unsplash.com/license). The gallery is labelled as illustrative until real farm photos are added.

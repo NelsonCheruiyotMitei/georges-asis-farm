@@ -40,15 +40,16 @@ window.FARM = {
     { id: "capsicum", name: "Capsicum", local: "Hoho", price: 4, note: "Sweet pepper seedlings for open field or greenhouse.", note_sw: "Miche ya pilipili hoho kwa shamba la wazi au greenhouse.", art: "capsicum" }
   ],
 
-  // Free stock photos from Pexels (free for commercial use). Replace with real farm photos later,
-  // e.g. "assets/img/greenhouse.jpg"
+  // Free photos from Unsplash (Unsplash License), stored in assets/img/photos/.
+  // Replace with real photos from the greenhouse when you have them (same folder, same names
+  // or new names here). pos = which part of the photo to keep when it is cropped.
   photos: {
-    hero: "https://images.pexels.com/photos/6508409/pexels-photo-6508409.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    hero: "assets/img/photos/hero.webp",
     gallery: [
-      { src: "https://images.pexels.com/photos/16678080/pexels-photo-16678080/free-photo-of-plants-in-greenhouse.jpeg?auto=compress&cs=tinysrgb&w=1200", cap: "Greenhouse growing", cap_sw: "Ukuzaji ndani ya greenhouse" },
-      { src: "https://images.pexels.com/photos/4390619/pexels-photo-4390619.jpeg?auto=compress&cs=tinysrgb&w=1200", cap: "Young seedlings", cap_sw: "Miche michanga" },
-      { src: "https://images.pexels.com/photos/4118322/pexels-photo-4118322.jpeg?auto=compress&cs=tinysrgb&w=1200", cap: "Healthy early growth", cap_sw: "Ukuaji wa mapema wenye afya" },
-      { src: "https://images.pexels.com/photos/7728382/pexels-photo-7728382.jpeg?auto=compress&cs=tinysrgb&w=1200", cap: "Preparing seedling trays", cap_sw: "Kuandaa trei za miche" }
+      { src: "assets/img/photos/seedling-trays.webp", cap: "Seedlings in plug trays", cap_sw: "Miche kwenye trei", pos: "center" },
+      { src: "assets/img/photos/young-seedlings.webp", cap: "Young seedlings with their first true leaves", cap_sw: "Miche michanga yenye majani yake ya kwanza", pos: "center 40%" },
+      { src: "assets/img/photos/cabbage.webp", cap: "Cabbage heading up in the field", cap_sw: "Kabichi ikifunga kichwa shambani", pos: "center" },
+      { src: "assets/img/photos/capsicum.webp", cap: "Capsicum (hoho) on the plant", cap_sw: "Hoho ikiwa bado kwenye mmea", pos: "center 45%" }
     ]
   },
 

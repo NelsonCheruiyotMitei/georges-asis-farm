@@ -104,7 +104,7 @@
   }
 
   function renderGallery() {
-    $("#gallery").innerHTML = F.photos.gallery.map(g => `<figure class="g reveal in"><img src="${g.src}" alt="${pick(g, "cap")}" loading="lazy" onerror="this.remove()"><span>${pick(g, "cap")}</span></figure>`).join("");
+    $("#gallery").innerHTML = F.photos.gallery.map(g => `<figure class="g reveal in"><img src="${g.src}" alt="${pick(g, "cap")}" loading="lazy" style="object-position:${g.pos || "center"}" onerror="this.remove()"><span>${pick(g, "cap")}</span></figure>`).join("");
     $$(".g").forEach((g, i) => g.addEventListener("click", () => { $("#lbImg").src = F.photos.gallery[i].src; $("#lbImg").alt = pick(F.photos.gallery[i], "cap"); lbEl.classList.add("open"); }));
   }
 

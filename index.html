@@ -62,6 +62,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="preload" as="image" href="assets/img/photos/hero.webp" type="image/webp">
 </head>
 <body>
   <header class="nav" id="nav">
@@ -84,7 +85,7 @@
   <main id="top">
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-bg"><img id="heroImg" alt="Seedlings growing inside a greenhouse" onerror="this.remove()"></div>
+      <div class="hero-bg"><img id="heroImg" src="assets/img/photos/hero.webp" alt="Trays of young seedlings inside a greenhouse" fetchpriority="high" onerror="this.remove()"></div>
       <div class="hero-shade"></div>
       <div class="wrap hero-inner">
         <span class="pill" id="statusPill"><i></i> Launching soon · Pre-booking open</span>
