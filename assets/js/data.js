@@ -11,6 +11,8 @@ window.FARM = {
   landmark: "near Chematich Primary School",
   landmark_sw: "karibu na Shule ya Msingi Chematich",
   mapsQuery: "Chematich Primary School, Kapkatet, Kericho",
+  // Google Business Profile (Google Maps listing). Used for the "Get directions" button.
+  googleMaps: "https://maps.google.com/?cid=5833310573651134852",
 
   // WhatsApp booking line in international format, no + or spaces
   whatsapp: "254723400665",
@@ -33,11 +35,11 @@ window.FARM = {
   // Status shown on the site. When you start selling, set launched: true
   launched: false,
 
-  // Prices are per seedling (KSh)
+  // Prices are per seedling (KSh). photo = picture on the crop card (leave empty to show a drawing)
   seedlings: [
-    { id: "cabbage", name: "Cabbage", local: "Kabichi", price: 2.5, note: "Firm, uniform heads for market and home use.", note_sw: "Vichwa imara vinavyolingana, kwa soko na matumizi ya nyumbani.", art: "cabbage" },
-    { id: "kale", name: "Kale", local: "Sukuma wiki", price: 2, note: "Kenya's everyday green, ready for continuous picking.", note_sw: "Mboga ya kila siku nchini Kenya, tayari kuvunwa mara kwa mara.", art: "kale" },
-    { id: "capsicum", name: "Capsicum", local: "Hoho", price: 4, note: "Sweet pepper seedlings for open field or greenhouse.", note_sw: "Miche ya pilipili hoho kwa shamba la wazi au greenhouse.", art: "capsicum" }
+    { id: "cabbage", name: "Cabbage", local: "Kabichi", price: 2.5, note: "Firm, uniform heads for market and home use.", note_sw: "Vichwa imara vinavyolingana, kwa soko na matumizi ya nyumbani.", art: "cabbage", photo: "assets/img/photos/crop-cabbage.webp" },
+    { id: "kale", name: "Kale", local: "Sukuma wiki", price: 2, note: "Kenya's everyday green, ready for continuous picking.", note_sw: "Mboga ya kila siku nchini Kenya, tayari kuvunwa mara kwa mara.", art: "kale", photo: "assets/img/photos/crop-kale.webp" },
+    { id: "capsicum", name: "Capsicum", local: "Hoho", price: 4, note: "Sweet pepper seedlings for open field or greenhouse.", note_sw: "Miche ya pilipili hoho kwa shamba la wazi au greenhouse.", art: "capsicum", photo: "assets/img/photos/crop-capsicum.webp" }
   ],
 
   // Free photos from Unsplash (Unsplash License), stored in assets/img/photos/.

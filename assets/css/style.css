@@ -51,7 +51,8 @@ svg{width:20px;height:20px;fill:currentColor}
 .pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(246,185,59,.18);border:1px solid rgba(246,185,59,.6);color:#ffe2a3;padding:.4rem .95rem;border-radius:999px;font-size:.86rem;font-weight:600;margin-bottom:1.3rem}
 .pill i{width:8px;height:8px;border-radius:50%;background:var(--sun);animation:pulse 2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(246,185,59,.6)}100%{box-shadow:0 0 0 10px rgba(246,185,59,0)}}
-.hero h1{font-size:clamp(2.4rem,5.6vw,4.4rem);max-width:760px}
+.hero h1{font-size:clamp(2.4rem,5.6vw,4.4rem);max-width:800px}
+.h1-loc{display:block;margin-top:.7rem;font-family:var(--font);font-size:clamp(1rem,1.8vw,1.3rem);font-weight:600;letter-spacing:0;color:var(--lime)}
 .lead{font-size:clamp(1.02rem,1.6vw,1.2rem);max-width:600px;margin:1.2rem 0 1.6rem;color:#e6f0e8}
 .hero-prices{display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:2rem}
 .hp{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px);border-radius:14px;padding:.6rem 1rem;min-width:130px}
@@ -95,6 +96,9 @@ svg{width:20px;height:20px;fill:currentColor}
 .crop-art{height:190px;display:grid;place-items:center;background:radial-gradient(circle at 50% 70%,#e7f5d8,#f6f2e6 70%)}
 .crop-art svg{width:150px;height:150px;transition:transform .5s}
 .crop:hover .crop-art svg{transform:scale(1.08) rotate(-3deg)}
+.crop-art.has-photo{display:block;background:#dfe9d3}
+.crop-art img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.crop:hover .crop-art img{transform:scale(1.05)}
 .crop-body{padding:1.3rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.45rem;flex:1}
 .crop-body h3{font-size:1.4rem}
 .crop-body .local{color:var(--green);font-weight:600;font-size:.9rem}

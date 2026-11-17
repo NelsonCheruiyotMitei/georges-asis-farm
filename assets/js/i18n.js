@@ -13,7 +13,7 @@ window.FARM_SW = {
   navCta: "Agiza",
 
   // Hero
-  h1: "Miche yenye afya na nguvu kwa wakulima wa Kericho",
+  h1: "Miche yenye afya na nguvu kutoka Georges Asis Farm<span class=\"h1-loc\">📍 Kapkatet, Kaunti ya Kericho</span>",
   lead: "Miche ya <b>kabichi</b>, <b>sukuma wiki</b> na <b>hoho</b> iliyokuzwa ndani ya greenhouse hapa Kapkatet, kwa wakulima, vikundi, maduka ya pembejeo na taasisi.",
   ctaCalc: "Hesabu oda yangu",
   ctaWa: "Agiza kupitia WhatsApp",

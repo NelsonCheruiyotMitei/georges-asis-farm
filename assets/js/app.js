@@ -49,6 +49,8 @@
       <path d="M44 46c-4 12-2 28 4 40" stroke="#8fdc8f" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/></svg>`
   };
 
+  window.ART_FALLBACK = ART; // used if a crop photo fails to load
+
   /* ---------- Rendering (re-run when the language changes) ---------- */
   const qty = Object.fromEntries(F.seedlings.map(s => [s.id, 0]));
 
@@ -70,7 +72,7 @@
   function renderCrops() {
     $("#crops").innerHTML = F.seedlings.map(s => `
       <article class="crop reveal in">
-        <div class="crop-art">${ART[s.art] || ""}</div>
+        <div class="crop-art${s.photo ? " has-photo" : ""}">${s.photo ? `<img src="${s.photo}" alt="${isSw() ? s.local : s.name}" loading="lazy" onerror="this.parentNode.innerHTML=ART_FALLBACK['${s.art}']||''">` : (ART[s.art] || "")}</div>
         <div class="crop-body">
           <h3>${isSw() ? s.local : s.name}</h3><span class="local">${isSw() ? s.name : s.local}</span>
           <p>${pick(s, "note")}</p>
@@ -172,7 +174,7 @@
     btn.textContent = t("copied"); btn.classList.add("ok"); setTimeout(() => { btn.textContent = t("copy"); btn.classList.remove("ok"); }, 1500);
   }));
   $("#partnerMail").href = `mailto:${F.email}?subject=${encodeURIComponent("Partnership enquiry: Georges Asis Farm")}&body=${encodeURIComponent("Hello Nelson,\n\nWe are interested in working with Georges Asis Farm on:\n[ ] Seedlings for CBOs / farmer groups\n[ ] Training and demonstration at the farm\n[ ] Product demonstration and promotion\n\nOrganisation:\nContact person:\nPhone:\n\nRegards,\n")}`;
-  $("#directions").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(F.mapsQuery);
+  $("#directions").href = F.googleMaps || ("https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(F.mapsQuery));
   $("#cPerson").textContent = F.contactPerson;
   $("#cPhone").innerHTML = `<a href="tel:${F.phone}">${F.phoneDisplay}</a>`;
   $("#cEmail").innerHTML = `<a href="mailto:${F.email}">${F.email}</a>`;
